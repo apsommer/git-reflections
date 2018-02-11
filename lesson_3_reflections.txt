@@ -10,10 +10,20 @@ What value do you think it offers?
 How can you use the staging area to make sure you have one commit per logical
 change?
 
+    When a logical change has been implemented, use "git diff" to check the difference between the staging area (currently the last commit) and the working directory. After confirming the correct changes to the code, use "git add file.ext" to add the file to the staging area. Then "git diff --staged" to again confirm the correct changes to the code, and finally "git commit" with a short commit message. A new commit should be created through the staging area once per logical change.
+
 What are some situations when branches would be helpful in keeping your history
 organized? How would branches help?
 
+    Branches provide a method to implement major program changes that span many commits. The original branch provides a working backup while the new feature is developed. This branching clearly organizes the points of diverging versions.
+
 How do the diagrams help you visualize the branch structure?
+
+    The diagram produced by running the command,
+
+    git log --graph --oneline branch1 branch2
+
+    produces a history of the commits in both branches by descending timestamp. The branch2 commits are labeled with a prefix character to highlight where it diverged from branch1. This is a simple visual representation of the git repository branch structure.
 
 What is the result of merging two branches together? Why do we represent it in
 the diagram the way we do?
