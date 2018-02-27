@@ -28,5 +28,7 @@ How do the diagrams help you visualize the branch structure?
 What is the result of merging two branches together? Why do we represent it in
 the diagram the way we do?
 
+    The changes in both branches are incorporated into one version. This can be done with reference to the common origin of both files. We have "new", "old", and "common original" ... these 3 files are compared line by line to determine the final merged version. The final version contains information about both parent branches in its metadata. The final merge has two parents, each from a different branch, shown accordingly on the diagram with 2 backward pointing arrows to the 2 different branches.
+
 What are the pros and cons of Git's automatic merging vs. always doing merges
 manually?
