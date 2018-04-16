@@ -1,7 +1,7 @@
 When would you want to use a remote repository rather than keeping all your work
 local?
 
-    Fill in your answer here
+    Remote repositories backup local files in a secure way. This allows for more innovative programming since a version of working code is always available.
 
 Why might you want to always pull changes manually rather than having Git
 automatically stay up-to-date with your remote repository?
