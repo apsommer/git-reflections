@@ -6,12 +6,16 @@ local?
 Why might you want to always pull changes manually rather than having Git
 automatically stay up-to-date with your remote repository?
 
-    Example of pull request.
+    An automatic pull from a remote repository will potentially cause undesired merge conflicts. Typically, the local version is being updated and pushed to the remote at regular intervals. Reverting to a backup should be a manual process in this case.
 
 Describe the differences between forks, clones, and branches.  When would you
 use one instead of another?
 
-    Fill in your answer here
+    A fork is essentially a cloned repository on the GitHub servers. It does not involve local machines, and provides a reference to the original forked content. This would be used when referencing someone else's project and protecting their original content from modification.
+
+    A clone is a copy of a repository, which can be either local to local or remote to local. This would be used for example when reverting to a backup or downloading someone else's project.
+
+    A branch represents a sequence of commits pointing back to the original. Branches are a method of version control and workflow management that retains the full repository history as metadata. A branch is used either for incremental saves or when adding new features simultaneously with the intention of merging in the future.
 
 What is the benefit of having a copy of the last known state of the remote
 stored locally?
