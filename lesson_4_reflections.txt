@@ -17,17 +17,16 @@ use one instead of another?
 
     A branch represents a sequence of commits pointing back to the original. Branches are a method of version control and workflow management that retains the full repository history as metadata. A branch is used either for incremental saves or when adding new features simultaneously with the intention of merging in the future.
 
-What is the benefit of having a copy of the last known state of the remote
-stored locally?
+What is the benefit of having a copy of the last known state of the remote stored locally?
 
-    Fill in your answer here
+    The last known state of the remote as stored locally can be compared to the actual state of the remote repository. The difference between them is often the changes made by someone else via GitHub. This improves collaboration by making it easier to incorporate changes from various sources.
 
 How would you collaborate without using Git or GitHub?  What would be easier,
 and what would be harder?
 
-    Fill in your answer here
+    The alternate methods are email or cloud storage like DropBox. The common "v1" "v2" "v3" naming system could be used, but it is difficult for a team to work sequentially in a coordinated way all the time. The Git system associates the changes from each source (metadata) making it easy to categorize the difference between files.
 
 When would you want to make changes in a separate branch rather than directly in
 master?  What benefits does each approach have?
 
-    Fill in your answer here
+    A separate branch is useful as it protects the base code from unapproved changes. This allows for a merge of the proposed changes into the master branch after review. This is appropriate for collaborative projects. In contrast, a direct change to master may cause issues with other functionality in a collaborative projects. Direct changes to master are for very simple projects, or your own work where the branch schema is universally controlled.
