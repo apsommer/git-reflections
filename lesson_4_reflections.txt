@@ -1,15 +1,12 @@
-When would you want to use a remote repository rather than keeping all your work
-local?
+When would you want to use a remote repository rather than keeping all your work local?
 
     Remote repositories backup local files in a secure way. This allows for more innovative programming since a version of working code is always available.
 
-Why might you want to always pull changes manually rather than having Git
-automatically stay up-to-date with your remote repository?
+Why might you want to always pull changes manually rather than having Git automatically stay up-to-date with your remote repository?
 
     An automatic pull from a remote repository will potentially cause undesired merge conflicts. Typically, the local version is being updated and pushed to the remote at regular intervals. Reverting to a backup should be a manual process in this case.
 
-Describe the differences between forks, clones, and branches.  When would you
-use one instead of another?
+Describe the differences between forks, clones, and branches.  When would you use one instead of another?
 
     A fork is essentially a cloned repository on the GitHub servers. It does not involve local machines, and provides a reference to the original forked content. This would be used when referencing someone else's project and protecting their original content from modification.
 
@@ -21,12 +18,10 @@ What is the benefit of having a copy of the last known state of the remote store
 
     The last known state of the remote as stored locally can be compared to the actual state of the remote repository. The difference between them is often the changes made by someone else via GitHub. This improves collaboration by making it easier to incorporate changes from various sources.
 
-How would you collaborate without using Git or GitHub?  What would be easier,
-and what would be harder?
+How would you collaborate without using Git or GitHub?  What would be easier, and what would be harder?
 
-    The alternate methods are email or cloud storage like DropBox. The common "v1" "v2" "v3" naming system could be used, but it is difficult for a team to work sequentially in a coordinated way all the time. The Git system associates the changes from each source (metadata) making it easy to categorize the difference between files.
+    The alternate methods are email or cloud storage like DropBox. The common "v1" "v2" "v3" naming system could be used, but it is difficult for a team to work sequentially in a coordinated way all the time. The Git system associates the changes from each source using metadata making it easy to categorize the difference between files.
 
-When would you want to make changes in a separate branch rather than directly in
-master?  What benefits does each approach have?
+When would you want to make changes in a separate branch rather than directly in master?  What benefits does each approach have?
 
     A separate branch is useful as it protects the base code from unapproved changes. This allows for a merge of the proposed changes into the master branch after review. This is appropriate for collaborative projects. In contrast, a direct change to master may cause issues with other functionality in a collaborative projects. Direct changes to master are for very simple projects, or your own work where the branch schema is universally controlled.

@@ -7,13 +7,11 @@ What value do you think it offers?
 
     The staging area is a temporary area to hold the files of a commit. The working directory is the top level folder of the repository. The staging area offers a means to not commit all files in the working directory on every commit ... for example only committing the files that have changed since the last commit. This would also be useful when working on pieces of larger projects.
 
-How can you use the staging area to make sure you have one commit per logical
-change?
+How can you use the staging area to make sure you have one commit per logical change?
 
-    When a logical change has been implemented, use "git diff" to check the difference between the staging area (currently the last commit) and the working directory. After confirming the correct changes to the code, use "git add file.ext" to add the file to the staging area. Then "git diff --staged" to again confirm the correct changes to the code, and finally "git commit" with a short commit message. A new commit should be created through the staging area once per logical change.
+    When a logical change has been implemented, use "git diff" to check the difference between the staging area (currently the last commit) and the working directory. After confirming the correct changes to the code, use "git add file.ext" to add the file to the staging area. Then "git diff --staged" to again confirm the correct changes to the code, and finally "git commit" with a commit message. A new commit should be created once per logical change.
 
-What are some situations when branches would be helpful in keeping your history
-organized? How would branches help?
+What are some situations when branches would be helpful in keeping your history organized? How would branches help?
 
     Branches provide a method to implement major program changes that span many commits. The original branch provides a working backup while the new feature is developed. This branching clearly organizes the points of diverging versions.
 
@@ -21,19 +19,16 @@ How do the diagrams help you visualize the branch structure?
 
     The diagram produced by running the command,
 
-    git log --graph --oneline branch1 branch2
+        git log --graph --oneline branch1 branch2
 
     produces a history of the commits in both branches by descending timestamp. The branch2 commits are labeled with a prefix character to highlight where it diverged from branch1. This is a simple visual representation of the git repository branch structure.
 
-What is the result of merging two branches together? Why do we represent it in
-the diagram the way we do?
+What is the result of merging two branches together? Why do we represent it in the diagram the way we do?
 
-    The changes in both branches are incorporated into one version. This can be done with reference to the common origin of both files. We have "new", "old", and "common original" ... these 3 files are compared line by line to determine the final merged version. The final version contains information about both parent branches in its history metadata. The final merge has two parents, each from a different branch, shown accordingly on the diagram with 2 backward pointing arrows to the 2 different branches.
+    The changes in both branches are incorporated into one version. This can be done with reference to the common origin of both files. We have new, old, and common original ... these 3 files are compared line by line to determine the final merged version. The final version contains information about both parent branches in its historical metadata. The final merge has two parents, each from a different branch, shown accordingly on the diagram with 2 backward pointing arrows to the 2 different branches.
 
-    git merge branch1 branch2
-    Common to say "merge branch2 INTO branch1"
+    git merge branch1 branch2 ... referred to as "merging branch2 INTO branch1"
 
-What are the pros and cons of Git's automatic merging vs. always doing merges
-manually?
+What are the pros and cons of Git's automatic merging vs. always doing merges manually?
 
-Using a simple set of rules for merging files, the automatic merging tool is usually much faster than doing the same process manually. When the scan is unable to clearly decide the final state of the repository, a "conflict" is generated for manual review. It is an efficient approach to use automatic merge when the result is obvious, and manual merge when a human decision is needed.
+    Using a simple set of rules for merging files, the automatic merging tool is much faster than doing the same process manually. When the scan is unable to clearly decide the final state of the repository, a 'conflict' is generated for manual review. It is an efficient approach to use automatic merge when the result is obvious, and manual merge when a human decision is needed.

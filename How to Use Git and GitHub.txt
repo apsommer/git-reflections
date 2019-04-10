@@ -1,0 +1,281 @@
+Navigating a Commit History
+
+    lesson_1_reflections.txt
+
+    Link for Unix-style command line tutorials
+    https://www.udacity.com/wiki/ud775/command-line-instructions
+
+    Link for Linux Command Basics course on Udacity
+    https://classroom.udacity.com/courses/ud595/lessons/4597278561/concepts/46968695970923
+
+    Compare two files using DOS command line.
+
+        fc file1.ext file2.ext
+
+    Common Git commands
+
+        git clone https://github.com/udacity/asteroids.git ... download this repository
+        git log ... show all commit history, press q to exit
+        git config –global color.ui auto ... sets colors in log output
+        git diff IDbefore IDafter ... compare to commits by their IDs
+        git checkout commitID ... revert local to previous version of repository
+
+    NOTE babun is an alternative to Git Bash
+
+    Git version control gives programmers more freedom by having the confidence that a working version of the program exists in the cloud. Can take much more risk, for example changing the fundamental program architecture.
+
+    Git Bash settings for custom command prompt, colors, set atom is default text editor.
+    https://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
+    https://help.github.com/en/articles/associating-text-editors-with-git
+
+        git config --global core.editor "atom --wait"
+        git config --global push.default upstream
+        git config --global merge.conflictstyle diff3
+
+    Overwrite Windows inherent limit on path lengths to enable long filenames, as is the case with the final example in this course.
+
+       git config --system core.longpaths true
+
+Problem Set 1
+
+    Simple problems here to test understanding.
+
+Creating and Modifying a Repository
+
+    reflection_lesson_3.txt
+
+    Initialize git from the top level directory of the desired new repository. It creates a hidden .git folder and prepares the directory for tracking in the Git framework. Running 'git log' in a newly created repository shows an error because there are zero commits.
+
+        git init
+
+    Output a summary for the status of the git framework of this repository.
+
+        git status
+
+    There are three 'areas' in Git. The working directory, the staging area, and the last commit. The staging area is a temporary zone where files are added prior to be commited. Everything in the staging area gets committed as a group unless specific files are defined.
+
+        git add file.ext ... adds this single file to the staging area
+        git reset file.ext ... removes this single file from the staging area
+
+    Commit the staging area. This opens a text editor and waits for the commit message to be entered, and the editor closed. Then the commit is made locally. The staging area remains the last commit unless files are added or removed.
+
+        git commit
+
+    NOTE Commit messages have unique style guides that must be followed. Very important.
+    http://udacity.github.io/git-styleguide/
+
+        git diff ... without any IDs referenced, this comparison is between the staging area and the working directory
+        git diff --staged ... compares the staging area with the most recent commit
+        git diff commit1 commit2 ... compares two commits by their IDs
+
+    Completely discard any changes to the working directory and staging area. Be careful this discards any changes in the working directory.
+
+        git reset --hard
+
+    Interesting video from Udacity employee. He creates a new branch every time he “switches context.” Also allows people to work on one feature for a while, then switch to another (because the branches will eventually be merged). The implication is commit for standard saves, and use a branch when a new significant line of thought occurs.
+
+    Create a new branch.
+
+        git branch branch1
+
+    Checking out a branch makes it the HEAD.
+
+        git checkout branch1
+
+    This is a visualization tool for branches. List of the commits is shown by descending time stamp with branch2 labeled, showing where branch2 diverges from branch1 with simple | and \ characters. The branch diagram looks like a fishbone.
+
+        git log --graph ... visual representation of branches in the terminal
+        git log --graph --oneline branch1 branch2 ... a one-line per commit message visual representation of branches in the terminal
+
+    Some commits are unreachable or lost completely. If you checkout a child commit, and create a new branch with a new commit on top of it, then return to the original branch and checkout a later child, the new created branch is unreachable with any git log path. It is lost without knowing the git ID, it will not show in any git log command as there is no path through it. Branch paths look just like wishbone diagram.
+
+    Create a new branch and checks it out to make it the HEAD.
+
+        git checkout –b branch1
+
+        This command is equivalent to running two commands in sequence.
+
+            git branch branch1
+            git checkout branch1
+
+    The HEAD pointer in Git determines your current working revision (and thereby the files that are placed in your project's working directory). Normally, when checking out a proper branch name, Git automatically moves the HEAD pointer along when you create a new commit. You are automatically on the newest commit of the chosen branch. When you instead choose to check out a specific commit hash, Git won't do this for you. The consequence is that when you make changes and commit them, these changes do NOT belong to any branch. Hence you are in a 'detached head' state. This means they can easily get lost once you check out a different revision or branch: not being recorded in the context of a branch, you lack the possibility to access that state easily (unless you know the exact commit hash of that new commit).
+
+    If a branch is deleted and leaves some commits unreachable from existing branches, those commits will continue to be accessible by commit id, until Git’s garbage collection runs. This will happen automatically from time to time, unless you actively turn it off. You can also run this process manually.
+
+        git gc ... run garbage collection
+
+    Merging Branches
+
+        Three files are needed: The two commits to be merged, and their common origin. Line by line these 3 files are compared. Wherever possible Git does this automatically but many times a decision must be made.
+
+        NOTE That all active branches are merged with the following command. If branch3 is checked out, and this command is run,
+
+            git merge branch1 branch2 ... merge branch2 INTO branch1
+
+        then all three branches will be merged together.
+
+        Cancel the current merge process.
+
+	        git merge --abort
+
+        Many merges are 'fast-forward' merges. Two repositories named 'a' and 'b' ... if 'a' or 'b' is a direct ancestor of the other, all the computer needs to do is change the name of the file. This is a description of the typical 'File Save' in all applications. This merges the current version to its direct ancestor, so the result is obvious and no comparison is needed. Merging files from multiple sources, but that share a common ancestor or reference point, is often a manual approach by necessity. This attention is given when the merge is not a fast-forward merge.
+
+        Auto-merge does not have advanced functionality. When there are code changes in the same general area of two files, a 'conflict' is created and the user manually determines how to merge. The editor Atom opens with a tiny tool to select one of three sections of code: the current branch, the branch merging into the current branch, and the common ancestor. A little button is there to pick one of the three configurations. Must be careful if code is refactored to new functions as the new functions will not cause a merge conflict and will already exist elsewhere in the code. This is because a new function is by definition new code, which is not in conflict with any existing versions.
+
+        A merge conflict may occur. For example: One branch has changes to a file, another branch deletes the file entirely. Must decide to keep the file or discard. This can be done in Atom natively as described above.
+
+        During the merge the following command can handle a merge conflict by 'keeping all files'.
+
+            git commit --all ... Intermediate merge command that resolves a specific merge conflict
+
+    NOTE The enter key actually creates an invisible character. Unix adds 'line feed' = LF = \n, while Windows adds two characters 'carriage return' and 'line feed' = CRLF = \r\n This difference creates a warning in the Git interface. Windows users must change a setting to prevent the error using,
+
+        git config --global core.autocrlf true
+
+    A very useful command to show the changed in a commit relative to its parent.
+
+        git show commit_id ... shows changes in that commit only by referencing it parent
+
+    See the precise difference of the heads of two branches. This is equivalent to the diffs between the tips of each branch.
+
+        git diff branch1 branch2 ... compare the tips of two branches
+
+    The final video interview has Jeffrey Middleton discussing his strategy. If the project is simple, he’ll just use one branch (!) and commit very often. Generates many commits you don’t need, but later really need this fidelity to solve other problems quickly. They put this video at the end because he basically doesn’t use branches at all, just save as normal with commits and their messages.
+
+    The idea is to maintain parallel versions of code with branches, and merge two versions together into one combined version.
+
+Using GitHub to Collaborate
+
+    reflections_lesson_4.txt
+
+    Created a GitHub account with username 'apsommer'.
+
+    GitHub open source projects.
+
+        ipython
+        bootstrap – web development
+        jquery – java library for html
+        atom
+
+    Any changes to project must be approved by account owner.
+    Public repositories are free, private is charged! This format encourages open source.
+
+    Setup command line to save the password for GitHub in Git Bash, so it does not need to be typed in every time.
+
+        git config --global credential.helper wincred
+
+    My first GitHub shared repository.
+    https://github.com/apsommer/reflections
+    https://discussions.udacity.com/c/standalone-courses/how-to-use-git-and-github
+
+    The 'remote' is an online repository that syncs with the local repository. A remote is simply a reference to a online repository. GitHub will only accept commits, not staging area or other data. These commands sync the GibHub repository with the desired commits from the local repository. The most common way to run this command is with the master branch. GitHub will contain every commit in the specified branch path.
+
+    Create a new remote with the name 'origin' at the specified URL.
+
+        git remote add origin <path to online repo>
+        git remote add origin https://github.com/apsommer/reflections
+
+    Lists all current remotes in the terminal output.
+
+        git remote ... list all current remotes
+        git remote -v ... verbose list of all current remotes
+        git remote rm bad_remote ... delete the remote named 'bad_remote'
+
+    Copy the entire master branch from local and pastes (pushes) it into the remote. This is the sync to the cloud.
+
+        git push origin master
+
+    The –u flags sets the remote named 'origin' as the 'upstream' for the 'git pull' command.
+
+        git push –u origin master
+
+    This pulls (downloads) the branch named 'master' from the remote repository named 'origin' and to the local hard drive. Equivalent to downloading the entire branch locally. If a merge conflict exists the command line logs will show, if the difference is a single commit (most common scenario) then their will be no merge conflict, and the remote and local repositories will match including the newest commit.
+
+        git pull origin master
+
+    pull_request.jpg
+
+    Forking
+
+        From GitHub website, click top right a button labeled 'Fork'. This causes the selected repository to show in your GitHub account, then clone to local machine. A local repository has been created that matches the original from the other's account. Fork complete.
+
+        For example, fork online repo, clone to local, add an arbitrary text file, commit changes, push to your remote, notice history includes your latest commit and all commits by original author.
+
+        The fork operation is done completely online. It does not exist locally.
+
+    Clone means to copy locally. The clone command automatically sets the remote named 'origin' to the URL specified in the clone.
+
+        git clone <repo URL>
+
+    A clone can also be accomplished locally, but usually refers to a pull from a remote.
+
+    To download a complete copy with all historical commits from the remote to local, use the fetch command. This creates two branches 'master' and 'origin/master' on the local drive. Then 'git merge' will merge the two branches that exist locally. This sequence is equivalent to the pull command since, pull = fetch + merge.
+
+        git fetch origin
+
+    Note that after executing a fetch, as soon as you make a new commit you now have two diverging branches. Your current location at the tip of latest local commit, and the relationship of this commit to the local copy of the online repository. The location 'origin/master' on the local drive means the tip of the online repository at the time of the last sync.
+
+    Example scenario: Someone makes a new commit on top of your online repository. You also make a new commit locally. Running 'git fetch' downloads the online repository to your local drive, effectively updating the local history of your online representation. However, the changes you made to your local branch are still maintained in the 'master' branch, since it has independent history relative to the local copy of the online version. If you run 'git status' in this condition an 'out-of-sync' error occurs because the local drive now has unmerged branch tips.
+
+    Pull Request
+
+        From GitHub website click button 'Pull Request'. A better name for this is 'merge request' since it is a request to merge two branches. One of the branches has the change, the other is the original. This is a method to review other people’s code and propose and approve changes prior to their implementation. A little message interface on GitHub for commenting about the pull request resolution as it bounces between people.
+
+        Basic idea here is to merge two branches together. There is someone else’s code, your local master, the current online version, and a local version of what was online at the time of the last sync. The pull request resolution is merging these files together manually and carefully.
+
+        For example,
+
+            >>>
+
+            Merge: 5dd660a 8acb6cd
+            Author: apsommer <35641881+apsommer@users.noreply.github.com>
+            Date:   Wed Apr 18 00:06:47 2018 -0700
+
+            Merge pull request #1 from apsommer/different-oil
+
+            Change the oil in cake recipe to canols (mis-spelled)
+
+        Show the correctly executed merge in the log with this command syntax.
+
+            git log –n 1
+
+        The pull request is purely an idea from GitHub it is not part of Git. Again, this should called a merge request since the proposed change is always in a new branch. GitHub started from Ruby programmers looking for a way to collaborate and has since expanded along the lines of its origins.
+
+        Git is the version control system. A common phrase is 'Git is used locally, then push to GitHub for the social / collaboration component'.
+
+    concept_map.jpg
+
+    Making changes in a separate branch is more complicated than working directly in a single master, especially when you need to stay up-to-date with changes others are making. Rather than simply pulling and pushing, you need to pull changes into your local origin/master from the remote, merge the local origin/master into your branch, then push your merged branch back to the remote. Finally, merge your branch into the local master and the remote master.
+
+    Example collaboration sequence with two remotes:
+
+        This scenario occurs when you make a pull request using your new branch (the correct procedure), but when you do so an error occurs because the forked repo itself has been changed by someone else while you have been making your new branch. Therefore, you are making a pull request against an invalid tip.
+
+        Create a fork and a remote for it named 'origin', also create a remote to the original repository named 'upstream'. Assume 'upstream' changes after you clone it.
+
+            git remote add origin https://github.com/apsommer/forked_repository ... creates new remote 'origin'
+        	git remote add upstream https://github.com/udacity/create-your-own-adventure ... creates new remote 'upstream' at the specified URL
+
+        Move to your local master branch, and pull the current and accurate 'upstream' remote origin/master. This 'upstream/master' pull no longer matches the history of 'origin/master' because someone else made change since the time you made the fork.
+
+            git checkout master ... move to local master branch
+            git pull upstream master ... over-write existing upstream/master branch with master branch from remote 'upstream'
+            git merge upstream/master master ... update your local master
+
+        Move to your branch with the changes and merge master into it.
+
+            git checkout stop-drop-roll ... move to local branch 'stop-drop-roll' that has some changes relative to the local master
+            git merge master stop-drop-roll ... merges local master into stop-drop-roll and remains on stop-drop-roll branch, fix merge conflicts as necessary
+
+        Now your branch stop-drop-roll has everything in the upstream master and your changes. Commit and push to your fork remote named 'origin'.
+
+            git add --all ... add changes to staging area
+            git commit ... convert staging area to new commit, add commit message
+            git push origin stop-drop-roll ... push this branch, now with all changes, to the original remote name which points to your fork of the original repository
+
+        One last step. The 'origin' remote also needs and updated copy of the master branch which now includes the changes in upstream.
+
+            git checkout master ... move back to local master
+            git push origin master ... updates your forked repo with correct master, meaning the state of 'origin' now matches the state of 'upstream'
+
+NOTE Alternative to GitHub is BitBucket. They allow unlimited private repositories!
