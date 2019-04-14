@@ -93,6 +93,8 @@ Creating and Modifying a Repository
 
         git checkout –b branch1
 
+        This command will also work immediately following 'git init', meaning that the first commit will be on 'branch1' and 'master' will not exist in the history.
+
         This command is equivalent to running two commands in sequence.
 
             git branch branch1
